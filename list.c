@@ -12,28 +12,9 @@ typedef struct list{
     Item *tail;
 }List;
 
-
+#define MAX_WORD_LENGTH 100
 List *list_new(){
     return (List *) calloc(1, sizeof(List)); 
-}
-
-char *create_word(){
-    char *word = calloc(100, sizeof(char));
-    char currentChar;
-    int index = 0;
-      while ((currentChar = getchar()) != '\n') {
-          if((int)currentChar == -1){
-              free(word);
-              return NULL;
-          }
-            if (currentChar == ' ' || currentChar == '\t') {
-            continue;
-            }
-            word[index] = currentChar;
-            index++;
-        }
-    word[index] = '\0';
-    return word;
 }
 
 void add_element(List *list, char *word_t){
@@ -47,15 +28,6 @@ void add_element(List *list, char *word_t){
         ptr->previous = list->tail;
         list->tail->next = ptr;
         list->tail = ptr;
-    }
-}
-
-
-void create_list(List *list){
-    char *word = create_word();
-    while(word){
-        add_element(list, word);
-        word = create_word();
     }
 }
 
@@ -86,4 +58,34 @@ void free_list(List *list){
     }
     free(list->head);
     free(list);
+}
+
+void create_list(List *list){
+    char currentchar;
+    char *word = calloc(MAX_WORD_LENGTH, sizeof(char));
+    int wordIndex = 0;
+    while ((currentchar = getchar()) != '\n') {
+        if (currentchar == ' ' || currentchar == '\t') {
+            if (wordIndex > 0) {
+                word[wordIndex] = '\0';
+                add_element(list, word);
+                wordIndex = 0;
+                word = calloc(MAX_WORD_LENGTH, sizeof(char));
+            }
+            continue;
+        }
+
+        word[wordIndex++] = currentchar;
+
+        if (wordIndex >= MAX_WORD_LENGTH - 1) {
+            printf("ERROE VERY BIG WORD\n");
+        }
+    }
+
+    if (wordIndex > 0) {
+        word[wordIndex] = '\0';
+        add_element(list, word);
+    }
+    print_list(list);
+    print_output_list(list);
 }
