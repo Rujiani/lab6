@@ -1,19 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "list.h"
+void clearInputBuffer() {
+    int c;
+    while ((c = getchar()) != '\n');
+}
 
 int main(){
     printf("Print input lines\n");
     List *list = list_new();
-    create_list(list);
-    printf("Input list:\n");
-    print_list(list);
-    printf("Output list:\n");
-    print_output_list(list);
-    printf("1. Delete all occurrences of a certain word\n");
-    printf("2. Insert a new word before the first occurrence of the specified word\n");
-    printf("3. Exit\n");
-    int input;
+    char input;
+    do{
+        input = getchar();
+        switch(input){
+            case '1':
+                printf("Do 1 func\n");
+                break;
+            case '2':
+                printf("Do 2 func\n");
+                break;
+            case '3':
+               printf("New line\n");
+                  break;
+            }
+    }while(input != -1); 
     free_list(list);
     return 0;
 }

@@ -60,11 +60,15 @@ void free_list(List *list){
     free(list);
 }
 
-void create_list(List *list){
+int create_list(List *list){
     char currentchar;
     char *word = calloc(MAX_WORD_LENGTH, sizeof(char));
     int wordIndex = 0;
     while ((currentchar = getchar()) != '\n') {
+        if((int)currentchar == -1){
+            free(word);
+            return -1;
+        }
         if (currentchar == ' ' || currentchar == '\t') {
             if (wordIndex > 0) {
                 word[wordIndex] = '\0';
@@ -88,4 +92,5 @@ void create_list(List *list){
     }
     print_list(list);
     print_output_list(list);
+    return 0;
 }
