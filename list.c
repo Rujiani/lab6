@@ -34,7 +34,7 @@ void add_element(List *list, char *word_t){
 void print_list(List *list){
     Item *n_element = list -> head;
     while(n_element){
-        printf("'%s '", n_element -> word);
+        printf("'%s' ", n_element -> word);
         n_element = n_element -> next;
     }
     printf("\n");
@@ -43,7 +43,7 @@ void print_list(List *list){
 void print_output_list(List *list){
     Item *n_element = list ->tail;
     while(n_element){
-        printf("'%s '", n_element -> word);
+        printf("'%s' ", n_element -> word);
         n_element = n_element -> previous;
     }
     printf("\n");
