@@ -57,7 +57,6 @@ void free_list(List *list){
         n_element = n_element -> previous;
     }
     free(list->head);
-    free(list);
 }
 
 void create_list(List *list){

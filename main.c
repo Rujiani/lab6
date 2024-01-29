@@ -28,12 +28,15 @@ int main(){
                 printf("Do 2 func\n");
                 break;
             case 3:
-                printf("New line\n");
+                clearInputBuffer();
+                create_list(list);
                 break;
             default:
                   printf("Incorrect input\n");
+                  break;
             }
     }while(1); 
     free_list(list);
+    free(list);
     return 0;
 }
