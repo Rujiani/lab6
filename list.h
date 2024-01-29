@@ -13,7 +13,7 @@ typedef struct list{
 }List;
 
 List *list_new();
-int create_list(List *list);
+void create_list(List *list);
 void print_list(List *list);
 void print_output_list(List *list);
 void free_list(List *list);

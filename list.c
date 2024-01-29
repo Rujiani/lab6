@@ -34,7 +34,7 @@ void add_element(List *list, char *word_t){
 void print_list(List *list){
     Item *n_element = list -> head;
     while(n_element){
-        printf("%s ", n_element -> word);
+        printf("'%s '", n_element -> word);
         n_element = n_element -> next;
     }
     printf("\n");
@@ -43,7 +43,7 @@ void print_list(List *list){
 void print_output_list(List *list){
     Item *n_element = list ->tail;
     while(n_element){
-        printf("%s ", n_element -> word);
+        printf("'%s '", n_element -> word);
         n_element = n_element -> previous;
     }
     printf("\n");
@@ -60,15 +60,11 @@ void free_list(List *list){
     free(list);
 }
 
-int create_list(List *list){
+void create_list(List *list){
     char currentchar;
     char *word = calloc(MAX_WORD_LENGTH, sizeof(char));
     int wordIndex = 0;
     while ((currentchar = getchar()) != '\n') {
-        if((int)currentchar == -1){
-            free(word);
-            return -1;
-        }
         if (currentchar == ' ' || currentchar == '\t') {
             if (wordIndex > 0) {
                 word[wordIndex] = '\0';
@@ -90,7 +86,4 @@ int create_list(List *list){
         word[wordIndex] = '\0';
         add_element(list, word);
     }
-    print_list(list);
-    print_output_list(list);
-    return 0;
 }
