@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 typedef struct item{
     struct item *previous;
     char *word;
@@ -18,10 +18,8 @@ List *list_new(){
 }
 
 void add_element(List *list, char *word_t){
-    printf("START\n");
     Item *ptr = malloc(sizeof(Item));
     ptr -> word = word_t;
-    printf("WORD\n");
     if(!(list->head)){
         list -> head = ptr;
         list -> tail = ptr;
@@ -117,3 +115,61 @@ void create_list(List *list){
         add_element(list, word);
     }
 }
+
+void delete_word(List *list){
+   printf("Input word:\n");
+    char currentchar;
+        char *word_temp = calloc(MAX_WORD_LENGTH, sizeof(char));
+        int wordIndex = 0;
+        while ((currentchar = getchar()) != '\n') {
+            if (currentchar == ' ' || currentchar == '\t') {
+                printf("Error no space\n");                
+            }
+    
+            word_temp[wordIndex++] = currentchar;
+    
+            if (wordIndex >= MAX_WORD_LENGTH - 1) {
+                printf("ERROE VERY BIG WORD\n");
+            }
+        }
+    
+        if (wordIndex > 0) {
+            word_temp[wordIndex] = '\0';
+        }
+        else{
+            printf("Error no word\n");
+        }
+        
+        Item *n_element = list -> head;
+        while(n_element){
+            if(!strcmp(n_element -> word, word_temp)){
+                if(n_element -> next && n_element -> previous){
+                    n_element -> previous -> next = n_element -> next;
+                    n_element -> next -> previous = n_element -> previous;
+                    free(n_element -> word);
+                    free(n_element);
+                    n_element = list -> head;
+                }
+                else if(n_element -> next){
+                    list -> head = n_element -> next;
+                    n_element -> next -> previous = n_element -> previous;
+                    free(n_element -> word);
+                    free(n_element);
+                    n_element = list -> head;
+                }
+                else if(n_element -> previous){
+                    list -> tail = n_element -> previous;
+                    n_element -> previous -> next = n_element -> next;
+                    free(n_element -> word);
+                    free(n_element);
+                    n_element = list -> tail;
+                }
+
+            }
+            else{
+                n_element = n_element ->next;
+            }
+        }
+}
+    
+  

@@ -22,7 +22,8 @@ int main(){
                 }
         switch(input){
             case 1:
-                printf("Do 1 func\n");
+                clearInputBuffer();
+                delete_word(list);
                 break;
             case 2:
                 printf("Do 2 func\n");

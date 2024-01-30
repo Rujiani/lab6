@@ -18,4 +18,5 @@ void print_list(List *list);
 void print_output_list(List *list);
 void free_list(List *list);
 void free_new(List *list);
+void delete_word(List *list); 
 #endif
