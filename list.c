@@ -12,7 +12,7 @@ typedef struct list{
     Item *tail;
 }List;
 
-#define MAX_WORD_LENGTH 100
+#define MAX_WORD_LENGTH 50 
 List *list_new(){
     return (List *) calloc(1, sizeof(List)); 
 }
@@ -74,6 +74,7 @@ void free_list(List *list){
     }
     free(list->head);
     free(list);
+    list = NULL;
 }
 
 void free_new(List *list){
@@ -116,17 +117,16 @@ void create_list(List *list){
     }
 }
 
-void delete_word(List *list){
-   printf("Input word:\n");
+char *word_cr(){
     char currentchar;
-        char *word_temp = calloc(MAX_WORD_LENGTH, sizeof(char));
+        char *word = calloc(MAX_WORD_LENGTH, sizeof(char));
         int wordIndex = 0;
         while ((currentchar = getchar()) != '\n') {
             if (currentchar == ' ' || currentchar == '\t') {
                 printf("Error no space\n");                
             }
     
-            word_temp[wordIndex++] = currentchar;
+            word[wordIndex++] = currentchar;
     
             if (wordIndex >= MAX_WORD_LENGTH - 1) {
                 printf("ERROE VERY BIG WORD\n");
@@ -134,13 +134,18 @@ void delete_word(List *list){
         }
     
         if (wordIndex > 0) {
-            word_temp[wordIndex] = '\0';
+            word[wordIndex] = '\0';
         }
         else{
             printf("Error no word\n");
         }
-        
-        Item *n_element = list -> head;
+    return word;
+}        
+ 
+void delete_word(List *list){
+   printf("Input word:\n");
+       Item *n_element = list -> head;
+       char *word_temp = word_cr();
         while(n_element){
             if(!strcmp(n_element -> word, word_temp)){
                 if(n_element -> next && n_element -> previous){
@@ -170,6 +175,35 @@ void delete_word(List *list){
                 n_element = n_element ->next;
             }
         }
+    free(word_temp);
 }
     
-  
+void add_word(List *list){
+    printf("Print input word:\n");
+    char *word_input = word_cr();
+    printf("Print word in list:\n");
+    char *word_in_list = word_cr();
+    Item *temp_el = list -> head;
+    while(strcmp(temp_el -> word, word_in_list)){
+        
+        temp_el = temp_el -> next;
+        if(!temp_el){
+            printf("ERORRRRRRRRRRR NO THAT WORD\n");
+            break;
+        }
+    }
+    
+    Item *new_el = calloc(1, sizeof(Item));
+    new_el -> word = word_input;
+    if(temp_el -> previous){
+        new_el -> previous =  temp_el -> previous;
+        temp_el -> previous -> next = new_el;
+    }
+    else{
+        list -> head = new_el;
+    }
+    temp_el -> previous = new_el;
+    new_el -> next = temp_el;
+    free(word_in_list);
+}
+        

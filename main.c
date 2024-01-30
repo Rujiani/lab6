@@ -12,6 +12,9 @@ int main(){
     int input;
     create_list(list);
     do{
+        printf("1. Delete all occurrences of a certain word.\n");
+        printf("2. Insert a new word before the first occurrence of the specified word.\n");
+        printf("3. New line\n\n");
         printf("Input line:\n\n");
         print_list(list);
         printf("Output line:\n\n");
@@ -26,7 +29,8 @@ int main(){
                 delete_word(list);
                 break;
             case 2:
-                printf("Do 2 func\n");
+                clearInputBuffer();
+                add_word(list);
                 break;
             case 3:
                 clearInputBuffer();
