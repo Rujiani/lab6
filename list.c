@@ -76,19 +76,6 @@ void free_list(List *list){
     free(list);
     list = NULL;
 }
-
-void free_new(List *list){
-    Item *n_element = list -> tail;
-    while(n_element){
-        free(n_element -> word);
-        free(n_element -> next);
-        n_element = n_element -> previous;
-    }
-    free(list->head);
-    list -> head = NULL;
-    list -> tail = NULL;
-}
-
 void create_list(List *list){
     char currentchar;
     char *word = calloc(MAX_WORD_LENGTH, sizeof(char));
