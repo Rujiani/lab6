@@ -29,6 +29,7 @@ int main(){
                 break;
             case 3:
                 clearInputBuffer();
+                list = list_new();
                 create_list(list);
                 break;
             default:
@@ -37,6 +38,5 @@ int main(){
             }
     }while(1); 
     free_list(list);
-    free(list);
     return 0;
 }

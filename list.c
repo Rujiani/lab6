@@ -18,8 +18,10 @@ List *list_new(){
 }
 
 void add_element(List *list, char *word_t){
+    printf("START\n");
     Item *ptr = malloc(sizeof(Item));
     ptr -> word = word_t;
+    printf("WORD\n");
     if(!(list->head)){
         list -> head = ptr;
         list -> tail = ptr;
@@ -35,12 +37,12 @@ void print_list(List *list){
     printf("'");
     Item *n_element = list -> head;
     while(n_element){
-        if(n_element -> previous){
-            printf("%s", n_element -> word);
+        if(n_element -> next){
+            printf("%s ", n_element -> word);
             n_element = n_element -> next;
         }
         else{
-            printf("%s ", n_element -> word);
+            printf("%s", n_element -> word);
             n_element = n_element -> next;
         }
     }
@@ -73,6 +75,19 @@ void free_list(List *list){
         n_element = n_element -> previous;
     }
     free(list->head);
+    free(list);
+}
+
+void free_new(List *list){
+    Item *n_element = list -> tail;
+    while(n_element){
+        free(n_element -> word);
+        free(n_element -> next);
+        n_element = n_element -> previous;
+    }
+    free(list->head);
+    list -> head = NULL;
+    list -> tail = NULL;
 }
 
 void create_list(List *list){
